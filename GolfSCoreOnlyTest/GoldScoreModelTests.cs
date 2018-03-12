@@ -184,5 +184,32 @@ namespace GolfSCoreOnlyTest
             //assert
             Assert.That(p1.Handicap == 0);
         }
-    }
+
+        [Test]
+        public void GetStableford_ParIsTwo()
+        {
+            //arrange
+            Player p1 = new Player("P1", 18);
+            Player p2 = new Player("P2", 0);
+            Player p3 = new Player("P2", 36);
+
+            Hole h1 = new Hole(1, 4);
+
+            var sut = new Score { Player = p1, Hole = h1, Gross = 5 };
+            var sut2 = new Score { Player = p2, Hole = h1, Gross = 4 };
+            var sut3 = new Score { Player = p3, Hole = h1, Gross = 6 };
+
+            //act
+            var stroke = 1;
+
+            var nettScore = sut.GetStablefordPoints(stroke);
+            var nettScore2 = sut2.GetStablefordPoints(stroke);
+            var nettScore3 = sut3.GetStablefordPoints(stroke);
+
+            //assert
+            Assert.That(nettScore == 2);
+            Assert.That(nettScore2 == 2);
+            Assert.That(nettScore3 == 2);
+        }
+}
 }
