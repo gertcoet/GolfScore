@@ -1,0 +1,81 @@
+﻿@model Umhlali
+
+<div>
+    <h2 class="page-header">@Model.ScoreCard.Course.Name Score Card</h2>
+</div>
+
+<div class="container">
+    <table class="table table-condensed table-bordered">
+        <tr class="warning">
+            <td><strong>Hole</strong></td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center"><strong>@hole.Number</strong></td>
+            }
+            <td align="center">Out</td>
+        </tr>
+        <tr class="success">
+            <td>Par</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center">@hole.Par</td>
+            }
+            <td align="center">@Model.ScoreCard.Course.CourseLayout.Sum(h => h.Par)</td>
+        </tr>
+        @foreach (var stroke in Model.ScoreCard.Scores.FirstOrDefault().Hole.GetStrokeTypes())
+        {
+            <tr class="info">
+                <td>Stroke - @stroke</td>
+                @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+                {
+                    <td class="text-center">@hole.Stroke[stroke]</td>
+                }
+            </tr>
+        }
+        <tr>
+            <td>@Model.ScoreCard.GetPlayerName(1)</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center">@Model.ScoreCard.GetPlayerGrossHoleScore(@Model.ScoreCard.GetPlayer(1), hole)</td>
+            }
+            <td class="text-center">@Model.ScoreCard.GetPlayerGrossScore(@Model.ScoreCard.GetPlayer(1))</td>
+        </tr>
+        <tr>
+            <td>@Model.ScoreCard.GetPlayerName(2)</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center">@Model.ScoreCard.GetPlayerGrossHoleScore(@Model.ScoreCard.GetPlayer(2), hole)</td>
+            }
+            <td class="text-center">@Model.ScoreCard.GetPlayerGrossScore(@Model.ScoreCard.GetPlayer(2))</td>
+        </tr>
+        <tr>
+            <td>@Model.ScoreCard.GetPlayerName(3)</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center">@Model.ScoreCard.GetPlayerGrossHoleScore(@Model.ScoreCard.GetPlayer(3), hole)</td>
+            }
+            <td class="text-center">@Model.ScoreCard.GetPlayerGrossScore(@Model.ScoreCard.GetPlayer(3))</td>
+        </tr>
+        <tr>
+            <td>@Model.ScoreCard.GetPlayerName(4)</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+            {
+                <td class="text-center">@Model.ScoreCard.GetPlayerGrossHoleScore(@Model.ScoreCard.GetPlayer(4), hole)</td>
+            }
+            <td class="text-center">@Model.ScoreCard.GetPlayerGrossScore(@Model.ScoreCard.GetPlayer(4))</td>
+        </tr>
+        @foreach (var distance in Model.ScoreCard.Scores.FirstOrDefault().Hole.GetDistanceTypes())
+        {
+        <tr class="danger">
+            <td>Distance - @distance</td>
+            @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
+    {
+        <td class="text-center">@hole.Distance[distance]</td>
+}
+            <td align="center">@Model.ScoreCard.Course.CourseLayout.Sum(h => h.Distance[distance])</td>
+        </tr>
+        }
+
+    </table>
+</div>
+
