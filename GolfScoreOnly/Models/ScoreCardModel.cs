@@ -28,7 +28,7 @@ namespace GolfScoreOnly.Models
         }
 
         public int GetPlayerGrossHoleScore(Player player, Hole hole)
-        {
+        {       
             var gross = from score in Scores
                         where (score.Player == player) && (score.Hole == hole)
                         select score.Gross;

@@ -9,3 +9,14 @@ c:\users\gert\documents\visual studio 2017\Projects\GolfScoreOnly\GolfScoreOnly\
 c:\users\gert\documents\visual studio 2017\Projects\GolfScoreOnly\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.dll
 c:\users\gert\documents\visual studio 2017\Projects\GolfScoreOnly\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.pdb
 c:\users\gert\documents\visual studio 2017\Projects\GolfScoreOnly\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.csprojResolveAssemblyReference.cache
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\bin\Debug\netcoreapp2.0\GolfScoreOnly.deps.json
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\bin\Debug\netcoreapp2.0\GolfScoreOnly.runtimeconfig.json
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\bin\Debug\netcoreapp2.0\GolfScoreOnly.runtimeconfig.dev.json
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\bin\Debug\netcoreapp2.0\GolfScoreOnly.dll
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\bin\Debug\netcoreapp2.0\GolfScoreOnly.pdb
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.csprojResolveAssemblyReference.cache
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.csproj.CoreCompileInputs.cache
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.AssemblyInfoInputs.cache
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.AssemblyInfo.cs
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.dll
+C:\Users\gert\Documents\Dev\GolfScore\GolfScoreOnly\obj\Debug\netcoreapp2.0\GolfScoreOnly.pdb

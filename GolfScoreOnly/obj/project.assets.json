@@ -13123,27 +13123,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Gert\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\gert\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\users\\gert\\documents\\visual studio 2017\\Projects\\GolfScoreOnly\\GolfScoreOnly\\GolfScoreOnly.csproj",
+      "projectUniqueName": "C:\\Users\\gert\\Documents\\Dev\\GolfScore\\GolfScoreOnly\\GolfScoreOnly.csproj",
       "projectName": "GolfScoreOnly",
-      "projectPath": "c:\\users\\gert\\documents\\visual studio 2017\\Projects\\GolfScoreOnly\\GolfScoreOnly\\GolfScoreOnly.csproj",
-      "packagesPath": "C:\\Users\\Gert\\.nuget\\packages\\",
-      "outputPath": "c:\\users\\gert\\documents\\visual studio 2017\\Projects\\GolfScoreOnly\\GolfScoreOnly\\obj\\",
+      "projectPath": "C:\\Users\\gert\\Documents\\Dev\\GolfScore\\GolfScoreOnly\\GolfScoreOnly.csproj",
+      "packagesPath": "C:\\Users\\gert\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\gert\\Documents\\Dev\\GolfScore\\GolfScoreOnly\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Gert\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\gert\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
