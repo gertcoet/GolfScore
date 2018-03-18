@@ -38,8 +38,8 @@
                 @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                 {
                     <td class="text-center">
-                        @{var id = $"Player1Hole{hole.Number.ToString()}";}
-                        <select id="@id" onchange="calculateTotalScore(1)">
+                        @{var id = $"P1H{hole.Number.ToString()}";}
+                        <select class="form-control" id="@id" onchange="calculateHoleScore(@hole.Number,1)">
                             @for (int i = 0; i < hole.Par + 5; i++)
                             {
 
@@ -54,7 +54,7 @@
                 <td>Result</td>
                 @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                 {
-                    var id = $"H{hole.Number}P1";
+                    var id = $"P1H{hole.Number}Points";
                     <td id="@id" class="text-center"></td>
                 }
                 <td class="text-center"></td>
@@ -103,10 +103,19 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-<script type="text/javascript">
-    function calculateTotalScore(holeNumber) {
-        var e = document.getElementById("Player1Hole" + holeNumber);
-        document.getElementById("H" + holeNumber + "P1").innerHTML = e.options[e.selectedIndex].value;
+<script type="text/javascript">                                 
+    function calculateHoleScore(holeNumber, playerNumber) {
+        var e = document.getElementById("P" + playerNumber + "H" + holeNumber);
+        document.getElementById("P" + playerNumber + "H" + holeNumber + "Points").innerHTML = e.options[e.selectedIndex].value;
+    }
+
+    function calculateFirstNine(PlayerNumber) {
+        var nett = 0;
+        for (var i = 1; i <= 9; i++) {
+            
+
+        }
+
     }
 
 </script>
