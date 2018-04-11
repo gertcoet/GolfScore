@@ -4,6 +4,43 @@
 <div>
     <h2 class="page-header">@Model.ScoreCard.Course.Name Score Card</h2>
 </div>
+<div class="col-md-offset-1 col-md-10">
+    <table class="table table-condensed table-bordered">
+        @{var strokeTypes = new SelectList(@Model.ScoreCard.Course.GetStrokeTypes());
+        var handicaps = new SelectList(Enumerable.Range(0, 37 - 0).ToList<int>());
+        }
+        <tr>
+            <th>Player</th>
+            <th>Name</th>
+            <th>Handicap</th>
+            <th>Stroke</th>
+        </tr>
+        <tr>
+            <td>Player A</td>
+            <td><input id="P1NameInput" class="form-control" onkeyup="setPlayerNames()" /></td>
+            <td><select id="P1Handicap" asp-items="handicaps" class="form-control"></select></td>
+            <td><select id="P1Stroke"   asp-items="strokeTypes" class="form-control"></select></td>
+        </tr>
+        <tr>
+            <td>Player B</td>
+            <td><input id="P2NameInput" class="form-control" onkeyup="setPlayerNames()" /></td>
+            <td><select id="P2Handicap" asp-items="handicaps" class="form-control"></select></td>
+            <td><select id="P2Stroke"  asp-items="strokeTypes" class="form-control"></select></td>
+        </tr>
+        <tr>
+            <td>Player C</td>
+            <td><input id="P3NameInput" class="form-control" onkeyup="setPlayerNames()" /></td>
+            <td><select id="P3Handicap" asp-items="handicaps" class="form-control"></select></td>
+            <td><select id="P3Stroke"  asp-items="strokeTypes" class="form-control"></select></td>
+        </tr>
+        <tr>
+            <td>Player D</td>
+            <td><input id="P4NameInput" class="form-control" onkeyup="setPlayerNames()" /></td>
+            <td><select id="P4Handicap" asp-items="handicaps" class="form-control"></select></td>
+            <td><select id="P4Stroke"  asp-items="strokeTypes" class="form-control"></select></td>
+        </tr>         
+    </table>
+</div>
 <div class="container">
     <form>
         <table class="table table-condensed table-bordered">
@@ -15,7 +52,7 @@
                 }
                 <td align="center">Out</td>
             </tr>
-            <tr class="success">
+            <tr id="Par" class="success">
                 <td>Par</td>
                 @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                 {
@@ -25,7 +62,8 @@
             </tr>
             @foreach (var stroke in Model.ScoreCard.Scores.FirstOrDefault().Hole.GetStrokeTypes())
             {
-                <tr class="info">
+                var id = $"Stroke-{stroke}";
+                <tr id="@id" class="info">
                     <td>Stroke - @stroke</td>
                     @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                     {
@@ -34,30 +72,30 @@
                 </tr>
             }
             <tr>
-                <td>@Model.ScoreCard.GetPlayerName(1)</td>
+                <td id="P1Name"></td>
                 @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                 {
                     <td class="text-center">
                         @{var id = $"P1H{hole.Number.ToString()}";}
                         <select class="form-control" id="@id" onchange="calculateHoleScore(@hole.Number,1)">
-                            @for (int i = 0; i < hole.Par + 5; i++)
+                            <option selected="selected" value="0">0</option>
+                            @for (int i = 1; i < hole.Par + 5; i++)
                             {
-
-                                <option>@i</option>
+                                <option value="@i">@i</option>
                             }
                         </select>
                     </td>
                 }
-                <td id="PlayerOneTotalFirstNine" class="text-center">@Model.ScoreCard.GetPlayerGrossScore(@Model.ScoreCard.GetPlayer(1))</td>
+                <td id="P1F9Total" class="text-center">0</td>
             </tr>
             <tr>
                 <td>Result</td>
                 @foreach (var hole in Model.ScoreCard.Course.CourseLayout)
                 {
                     var id = $"P1H{hole.Number}Points";
-                    <td id="@id" class="text-center"></td>
+                    <td id="@id" class="text-center">0</td>
                 }
-                <td class="text-center"></td>
+                <td id="P1F9TotalPoints" class="text-center"></td>
             </tr>
             <tr>
                 <td>@Model.ScoreCard.GetPlayerName(2)</td>
@@ -103,19 +141,91 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-<script type="text/javascript">                                 
+<script type="text/javascript">
     function calculateHoleScore(holeNumber, playerNumber) {
         var e = document.getElementById("P" + playerNumber + "H" + holeNumber);
-        document.getElementById("P" + playerNumber + "H" + holeNumber + "Points").innerHTML = e.options[e.selectedIndex].value;
+        var stroke = getStroke(getPlayerStrokeType(playerNumber), holeNumber);
+        var par = getPar(holeNumber);
+        var nettScore = calculateNettScore(e.options[e.selectedIndex].value, stroke, getPlayerHandicap(playerNumber));
+        var stblPoints = calculateStableFord(par, nettScore);
+
+        document.getElementById("P" + playerNumber + "H" + holeNumber + "Points").innerHTML = stblPoints;
+
+        calculateFirstNineNett(playerNumber);
+        calculateFirstNinePoints(playerNumber);
     }
 
-    function calculateFirstNine(PlayerNumber) {
+    function getPlayerHandicap(playerNumber) {
+        var ph = document.getElementById("P" + playerNumber + "Handicap");
+        return ph.options[ph.selectedIndex].value;
+    }
+
+    function getPlayerStrokeType(playerNumber) {
+        var ps = document.getElementById("P" + playerNumber + "Stroke");
+        return ps.options[ps.selectedIndex].value;
+    }
+
+
+    function calculateFirstNineNett(playerNumber) {
         var nett = 0;
         for (var i = 1; i <= 9; i++) {
-            
+            var e = document.getElementById("P" + playerNumber + "H" + i);
+            nett = nett + parseInt(e.options[e.selectedIndex].value);
+        }
+        document.getElementById("P1F9Total").innerHTML = nett;
+    }
 
+    function calculateFirstNinePoints(playerNumber) {
+        var nett = 0;
+        for (var i = 1; i <= 9; i++) {
+            nett = nett + parseInt(document.getElementById("P" + playerNumber + "H" + i + "Points").innerHTML);
+        }
+        document.getElementById("P1F9TotalPoints").innerHTML = nett;
+    }
+
+    function getStroke(strokeType, holeNumber) {
+        var row = document.getElementById("Stroke-" + strokeType);
+        return row.cells[holeNumber].innerHTML;
+    }
+
+    function getPar(holeNumber) {
+        var row = document.getElementById("Par");
+        return row.cells[holeNumber].innerHTML;
+    }
+
+
+
+    function calculateNettScore(score, stroke, handicap) {
+        score = parseInt(score);
+        stroke = parseInt(stroke);
+        handicap = parseInt(handicap);
+
+        if (handicap == 0)
+            return score
+
+        if (handicap >= 1 && handicap <= 18) {
+            return (handicap >= stroke) ? score - 1 : score;
         }
 
+        if (handicap >= 18 && handicap <= 36) {
+            return ( handicap >= stroke + 18) ? score - 2 : score - 1
+        }
+
+        return 0;
     }
+
+    function calculateStableFord(par, nettScore) {
+        if (parseInt(nettScore) == 0)
+            return 0;
+        var points = ((parseInt(par) + 2) - parseInt(nettScore));
+        return points >= 0 ? points : 0;
+    }
+
+    function setPlayerNames() {
+        var p1Input = document.getElementById("P1NameInput");
+
+        document.getElementById("P1Name").innerHTML = p1Input.value;
+    }
+
 
 </script>

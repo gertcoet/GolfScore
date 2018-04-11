@@ -59,6 +59,8 @@ namespace GolfScoreOnly.Models
             }
         }
 
+        
+
     }
 
     public class Hole
@@ -111,6 +113,23 @@ namespace GolfScoreOnly.Models
 
         public string Name { get; set; }
         public List<Hole> CourseLayout { get; set; }
+
+        //public List<string> StrokeTypes => GetStrokeTypes();
+
+        public IEnumerable<string> GetStrokeTypes()
+        {
+            var strokeTypes = new List<string>();
+
+            foreach(var hole in CourseLayout)
+            {
+                foreach(var st in hole.GetStrokeTypes())
+                {
+                    strokeTypes.Add(st);
+                }
+            }
+
+            return strokeTypes.Distinct().ToList();
+        }
 
         
     }
